@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm Ngược THPTQG 2027 - Anh Khoa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gold: '#B8860B',
+                        goldDark: '#936c09',
+                        premium: {
+                            light: '#F8F9FA',
+                            teal: '#0D9488',
+                            accent: '#E2E8F0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: #1f2937;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        #inspiration-tag {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+            color: #B8860B;
+        }
+        .quote-mark {
+            color: #B8860B;
+            opacity: 0.8;
+            font-size: 5rem;
+            line-height: 1;
+        }
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased p-4 md:p-8">
+<!-- Header -->
+<header class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+
+    <div class="flex items-center gap-4">
+
+        <div class="p-3 glass-card bg-white/70 backdrop-blur-md shadow-lg">
+            
+            <!-- Icon Lịch -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-8 w-8 text-gold"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+
+        </div>
+
+        <div>
+
+            <div class="flex items-center gap-2">
+                <h1 class="text-xl md:text-2xl font-bold uppercase tracking-widest text-teal-900">
+                    ĐẾM NGƯỢC KÌ THI THPTQG 2027
+                </h1>
+            </div>
+
+            <p class="text-sm text-gray-500 italic font-medium">
+                Hành trình khẳng định bản thân của thế hệ 2K9
+            </p>
+
+        </div>
+
+    </div>
+
+<!-- CropperJS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+
+<!-- Khối bên phải -->
+<div class="flex items-center gap-3 flex-wrap justify-center">
+
+    <!-- Upload ảnh nền -->
+    <label for="bgUpload"
+        class="cursor-pointer px-4 py-2 bg-white/70 backdrop-blur-md rounded-full border border-gold text-xs font-bold text-gold shadow-sm flex items-center gap-2 hover:bg-gold hover:text-white transition-all duration-300">
+
+        <!-- Icon upload -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="w-4 h-4"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M12 4v12m0 0l-4-4m4 4l4-4" />
+        </svg>
+
+        Tuỳ chỉnh hình nền
+
+    </label>
+
+    <input type="file"
+           id="bgUpload"
+           accept="image/*"
+           class="hidden">
+
+    <!-- Niên khóa -->
+    <div class="px-4 py-2 bg-white/70 backdrop-blur-md rounded-full border border-gold text-xs font-bold text-gold shadow-sm flex items-center gap-2">
+
+        <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+        </span>
+
+        Niên khóa 2024 - 2027
+
+    </div>
+
+</div>
+
+</header>
+
+<!-- Popup crop -->
+<div id="cropModal"
+     class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-6">
+
+    <div class="bg-white rounded-3xl p-5 w-full max-w-4xl shadow-2xl">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4">
+
+            <h2 class="font-bold text-lg text-teal-900">
+                Tuỳ chỉnh ảnh nền
+            </h2>
+
+            <button id="closeCrop"
+                class="text-gray-500 hover:text-red-500 text-xl font-bold">
+                ✕
+            </button>
+
+        </div>
+
+        <!-- Ảnh crop -->
+        <div class="max-h-[70vh] overflow-hidden rounded-2xl bg-gray-100">
+            <img id="cropImage" class="max-w-full">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-3 mt-5">
+
+            <button id="cancelCrop"
+                class="px-5 py-2 rounded-full border border-gray-300 text-gray-500 font-semibold hover:bg-gray-100 transition">
+
+                Huỷ
+
+            </button>
+
+            <button id="applyBg"
+                class="px-5 py-2 rounded-full bg-gold text-white font-bold shadow hover:scale-105 transition-all duration-300">
+
+                Áp dụng
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Script upload + crop -->
+<script>
+
+const bgUpload = document.getElementById("bgUpload");
+const cropModal = document.getElementById("cropModal");
+const cropImage = document.getElementById("cropImage");
+const applyBg = document.getElementById("applyBg");
+const closeCrop = document.getElementById("closeCrop");
+const cancelCrop = document.getElementById("cancelCrop");
+
+let cropper;
+
+bgUpload.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+
+        cropImage.src = reader.result;
+
+        cropModal.classList.remove("hidden");
+        cropModal.classList.add("flex");
+
+        if (cropper) cropper.destroy();
+
+        cropper = new Cropper(cropImage, {
+
+            aspectRatio: 16 / 9,
+            viewMode: 1,
+            dragMode: "move",
+            autoCropArea: 1,
+            responsive: true,
+            background: false,
+            movable: true,
+            zoomable: true,
+            scalable: true,
+            rotatable: false,
+
+        });
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+applyBg.addEventListener("click", () => {
+
+    if (!cropper) return;
+
+    const canvas = cropper.getCroppedCanvas({
+        width: 1920,
+        height: 1080
+    });
+
+    const croppedImage = canvas.toDataURL("image/jpeg");
+
+    document.body.style.backgroundImage = `url(${croppedImage})`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundAttachment = "fixed";
+
+    cropModal.classList.add("hidden");
+    cropModal.classList.remove("flex");
+
+});
+
+closeCrop.addEventListener("click", () => {
+
+    cropModal.classList.add("hidden");
+    cropModal.classList.remove("flex");
+
+});
+
+cancelCrop.addEventListener("click", () => {
+
+    cropModal.classList.add("hidden");
+    cropModal.classList.remove("flex");
+
+});
+
+</script>
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Cột Trái & Giữa -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- Thẻ Quote nghệ thuật -->
+            <div class="glass-card p-10 text-center relative overflow-hidden bg-white shadow-xl border-none">
+                <div class="absolute top-2 left-6 quote-mark font-serif select-none">“</div>
+                <p id="quote-text" class="text-xl md:text-2xl font-serif italic text-teal-900 mb-4 relative z-10 leading-relaxed transition-opacity duration-500 font-medium">
+                    "Thành công là kết quả của sự chuẩn bị, làm việc chăm chỉ và học hỏi từ thất bại"
+                </p>
+                <p id="quote-author" class="text-goldDark font-bold uppercase tracking-widest text-sm transition-opacity duration-500">— Colin Powell</p>
+                <div class="absolute bottom-2 right-6 quote-mark font-serif select-none">”</div>
+            </div>
+
+            <div class="glass-card p-6 flex items-center justify-center gap-4 border-l-8 border-l-teal-600 bg-white">
+    <div class="bg-teal-50 p-3 rounded-full text-teal-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+    </div>
+    <div class="text-center">
+        <span class="text-xs uppercase tracking-widest text-gray-400 block mb-1 font-bold">
+            Môn thi đầu tiên: Ngữ Văn
+        </span>
+        <span class="text-xl font-bold text-teal-900 block">
+            Ngày 11 Tháng 6, 2027
+        </span>
+        <span class="mt-2 px-3 py-1 bg-teal-600 text-white text-xs font-bold rounded-full inline-block">
+            07:30 SÁNG
+        </span>
+    </div>
+</div>
+            <!-- Khu vực đếm ngược -->
+            <div class="text-center py-4">
+                <h3 class="text-sm uppercase tracking-[0.3em] text-gray-500 mb-8 font-bold">Thời gian đếm ngược đến kỳ thi</h3>
+                <div class="grid grid-cols-4 gap-3 md:gap-6">
+                    <div class="space-y-3">
+                        <div id="days" class="text-5xl md:text-7xl font-bold bg-white rounded-2xl py-8 shadow-md border border-gray-100 text-teal-900">00</div>
+                        <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400 font-bold block">Ngày</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div id="hours" class="text-5xl md:text-7xl font-bold bg-white rounded-2xl py-8 shadow-md border border-gray-100 text-teal-900">00</div>
+                        <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400 font-bold block">Giờ</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div id="minutes" class="text-5xl md:text-7xl font-bold bg-white rounded-2xl py-8 shadow-md border border-gray-100 text-teal-900">00</div>
+                        <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400 font-bold block">Phút</span>
+                    </div>
+                    <div class="space-y-3">
+                        <div id="seconds" class="text-5xl md:text-7xl font-bold bg-white rounded-2xl py-8 shadow-md border border-gray-100 text-gold">00</div>
+                        <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400 font-bold block">Giây</span>
+                    </div>
+                </div>
+            </div>
+<style>
+/* ===== CONTAINER CHUNG (QUAN TRỌNG NHẤT) ===== */
+.section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+    margin-top: 24px;
+}
+
+/* ===== TABLE ===== */
+.exam-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.exam-table th,
+.exam-table td {
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+/* Header */
+.exam-table thead th {
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+    background: #f9fafb;
+}
+
+/* Body */
+.exam-table tbody td {
+    text-align: center;
+}
+
+/* Cột nội dung căn trái */
+.exam-table td:nth-child(3) {
+    text-align: left;
+}
+
+/* Cân cột */
+.exam-table th:nth-child(1),
+.exam-table td:nth-child(1) { width: 120px; }
+
+.exam-table th:nth-child(2),
+.exam-table td:nth-child(2) { width: 90px; }
+
+.exam-table th:nth-child(3),
+.exam-table td:nth-child(3) { width: 280px; }
+
+.exam-table th:nth-child(4),
+.exam-table td:nth-child(4),
+.exam-table th:nth-child(5),
+.exam-table td:nth-child(5),
+.exam-table th:nth-child(6),
+.exam-table td:nth-child(6) { width: 120px; }
+
+/* Line + hover */
+.exam-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.exam-table tbody tr:hover {
+    background: #f9fafb;
+    transition: 0.2s;
+}
+</style>
+
+
+<!-- ===== WRAPPER CHO CÂN LAYOUT ===== -->
+<div class="section-container">
+
+    <div class="glass-card overflow-hidden border border-gray-200 rounded-xl">
+        
+        <!-- HEADER -->
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex items-center gap-2">
+            <svg class="w-5 h-5 text-teal-700" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"></path>
+            </svg>
+            <h3 class="font-bold text-teal-900 text-sm uppercase tracking-wider">
+                Lịch thi tốt nghiệp THPT năm 2027 (Chính thức)
+            </h3>
+        </div>
+
+        <!-- TABLE -->
+        <div class="overflow-x-auto">
+            <table class="exam-table">
+                <thead>
+                    <tr>
+                        <th>Ngày</th>
+                        <th>Buổi</th>
+                        <th>Bài thi/Môn thi</th>
+                        <th>Thời gian</th>
+                        <th>Phát đề</th>
+                        <th>Bắt đầu</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="font-bold text-teal-800" rowspan="2">10/6/2027</td>
+                        <td class="text-gray-500">Sáng</td>
+                        <td colspan="4" class="italic text-gray-400 text-left">
+                            08:00: Họp cán bộ làm công tác coi thi tại Điểm thi
+                        </td>
+                    </tr>
+
+                    <tr class="bg-gray-50/30">
+                        <td class="text-gray-500">Chiều</td>
+                        <td colspan="20" class="italic text-gray-400 text-right">
+                            14:00: Làm thủ tục dự thi, đính chính sai sót và phổ biến quy chế
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-bold text-teal-800" rowspan="2">11/6/2027</td>
+                        <td class="font-semibold">Sáng</td>
+                        <td class="font-bold text-gray-700">Ngữ văn</td>
+                        <td>120 phút</td>
+                        <td>07:30</td>
+                        <td class="text-teal-600 font-bold">07:35</td>
+                    </tr>
+
+                    <tr class="bg-gray-50/30">
+                        <td class="font-semibold">Chiều</td>
+                        <td class="font-bold text-gray-700">Toán</td>
+                        <td>90 phút</td>
+                        <td>14:20</td>
+                        <td class="text-teal-600 font-bold">14:30</td>
+                    </tr>
+
+                    <tr>
+                        <td class="font-bold text-teal-800">12/6/2027</td>
+                        <td class="font-semibold">Sáng</td>
+                        <td class="font-bold text-gray-700">Bài thi tự chọn 1</td>
+                        <td>50 phút</td>
+                        <td>07:30</td>
+                        <td class="text-teal-600 font-bold">07:35</td>
+                    </tr>
+<tr>
+                        <td class="font-bold text-teal-800"></td>
+                        <td class="font-semibold">Sáng</td>
+                        <td class="font-bold text-gray-700">Bài thi tự chọn 2</td>
+                        <td>50 phút</td>
+                        <td>08:35</td>
+                        <td class="text-teal-600 font-bold">08:40</td>
+                    </tr>
+                    <tr class="bg-gray-50/30">
+                        <td class="font-bold text-teal-800">13/6/2027</td>
+                        <td colspan="5" class="text-center py-4 font-serif italic text-gray-400">
+                            Ngày thi dự phòng
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+            <!-- Câu nói truyền cảm hứng (Chạy mỗi 5s) -->
+            <div class="flex justify-center">
+                <div id="inspiration-tag" class="px-8 py-3 bg-white border-2 border-gold shadow-lg rounded-full text-teal-900 font-bold text-sm md:text-base flex items-center gap-3">
+                    <span class="text-gold text-xl">✨</span>
+                    <span id="inspiration-text">Hành trình vạn dặm bắt đầu từ một bước chân</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột Phải -->
+        <div class="space-y-8">
+            
+           <!-- Avatar Nghệ Thuật & Lời chúc -->
+<div class="glass-card p-6 flex flex-col items-center text-center bg-teal-900 border-none shadow-2xl relative overflow-hidden">
+    
+    <div class="avatar-container floating z-10 mb-4">
+        <div class="avatar-glow"></div>
+
+        <!-- SVG -->
+        <svg class="w-20 h-20 relative z-20 text-yellow-300 drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"></path>
+        </svg>
+    </div>
+
+    <!-- TITLE -->
+    <h4 class="text-lg font-bold mb-2 font-serif uppercase tracking-widest z-10 
+        text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-300">
+        Lời chúc từ Anh Khoa
+    </h4>
+
+    <!-- TEXT -->
+    <p class="text-sm italic text-yellow-50 font-light px-4 z-10">
+        "Chúc các bạn sĩ tử 2k9 có thật nhiều may mắn và bền bỉ trong chặng đường phía trước nha 🍀❤️"
+    </p>
+
+</div>
+
+            <!-- Social Media Contact -->
+            <div class="glass-card p-6 bg-white border-none shadow-xl">
+                <h3 class="font-bold uppercase text-[10px] tracking-[0.2em] text-gray-400 mb-6 text-center">Liên hệ & Theo dõi</h3>
+                <div class="flex justify-around items-center">
+                    <a href="https://www.instagram.com/_ahk_t/" target="_blank" class="social-link flex flex-col items-center gap-2 group transition-all">
+                        <div class="p-3 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-xl text-white shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.247 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.247-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.247-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.247 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.058-1.281.072-1.689.072-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </div>
+                        <span class="text-[9px] font-bold text-gray-500 group-hover:text-gold uppercase tracking-tighter">Instagram</span>
+                    </a>
+                    <div class="h-8 w-[1px] bg-gray-100"></div>
+                    <a href="https://www.tiktok.com/@_ahk_t" target="_blank" class="social-link flex flex-col items-center gap-2 group transition-all">
+                        <div class="p-3 bg-black rounded-xl text-white shadow-md group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+                        </div>
+                        <span class="text-[9px] font-bold text-gray-500 group-hover:text-gold uppercase tracking-tighter">TikTok</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Lịch thi dự kiến -->
+            <div class="glass-card p-6 bg-white border-none shadow-xl">
+                <div class="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
+                    <div class="p-2 bg-gold/10 rounded-lg"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></div>
+                    <h3 class="font-bold uppercase text-xs tracking-[0.2em] text-teal-900">Lịch thi Đánh giá năng lực 2027</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <span class="font-bold text-gray-700 text-sm">Đang cập nhật</span>
+                        <span class="text-[12px] text-teal-900 font-bold uppercase"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- Tin tức & Thông báo -->
+<section class="max-w-7xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+
+    <!-- Card bên trái -->
+    <div class="glass-card p-8 bg-white border-none shadow-lg h-full">
+
+        <h3 class="font-bold flex items-center gap-2 uppercase text-xs tracking-widest text-teal-900 mb-8 border-b pb-4">
+            <span class="w-2 h-2 bg-gold rounded-full"></span>
+            Thông báo mới nhất
+        </h3>
+
+        <div class="space-y-8">
+
+            <!-- Mục 1 -->
+            <a
+               target="_blank"
+               class="group block border-l-2 border-transparent hover:border-gold pl-4 transition-all">
+
+                <p class="text-[10px] font-bold text-gold uppercase mb-1 tracking-wider">
+                    THPTQG 2027
+                </p>
+
+                <h4 class="font-bold text-teal-900 group-hover:text-teal-600 transition text-lg">
+                    Điểm mới trong quy chế thi tốt nghiệp THPT 2027
+                </h4>
+
+                <p class="text-sm text-gray-500 leading-relaxed mt-1">
+                    Toàn văn Thông tư số 13/TT-BGDĐT ngày 09/3/2027 về sửa đổi, bổ sung một số điều của Quy chế thi tốt nghiệp THPT.
+                </p>
+            </a>
+
+            <!-- Mục 2 -->
+            <a 
+               target="_blank"
+               class="group block border-l-2 border-transparent hover:border-gold pl-4 transition-all">
+
+                <p class="text-[10px] font-bold text-gold uppercase mb-1 tracking-wider">
+                    ĐHQG TP.HCM
+                </p>
+
+                <h4 class="font-bold text-teal-900 group-hover:text-teal-600 transition text-lg">
+                    Lịch thi ĐGNL (V-ACT) 2027 của ĐHQG TPHCM
+                </h4>
+
+                <p class="text-sm text-gray-500 leading-relaxed mt-1">
+                    Thông tin chi tiết về cổng đăng ký và địa điểm thi đánh giá năng lực V-ACT 2027.
+                </p>
+            </a>
+
+            <!-- Mục 3 -->
+            <a 
+               target="_blank"
+               class="group block border-l-2 border-transparent hover:border-gold pl-4 transition-all">
+
+                <p class="text-[10px] font-bold text-gold uppercase mb-1 tracking-wider">
+                    Sư Phạm • H-SCA
+                </p>
+
+                <h4 class="font-bold text-teal-900 group-hover:text-teal-600 transition text-lg">
+                    Kế hoạch tổ chức kì thi ĐÁNH GIÁ NĂNG LỰC CHUYÊN BIỆT (H-SCA) 2027
+                </h4>
+
+                <p class="text-sm text-gray-500 leading-relaxed mt-1">
+                    Lưu ý quan trọng cho thí sinh đăng ký các tổ hợp môn chuyên biệt sư phạm.
+                </p>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Card bên phải -->
+    <div class="glass-card p-8 flex flex-col justify-center items-center text-center space-y-6 bg-teal-50 border-none shadow-lg h-full">
+
+        <h3 class="font-serif text-3xl text-teal-900 italic font-bold">
+            "Hãy kiên trì cho đến khi bạn tự hào"
+        </h3>
+
+        <div class="h-1 w-12 bg-gold rounded-full"></div>
+
+        <p class="text-gray-600 text-sm max-w-sm font-semibold italic">
+            Hành trình ôn thi 2027 sẽ là kỷ niệm rạng rỡ nhất của tuổi học trò. Cố gắng lên nhé!
+        </p>
+
+        <div class="pt-4 flex gap-8">
+
+            <div class="text-center">
+                <p class="text-3xl font-bold text-gold">100%</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Nỗ lực</p>
+            </div>
+
+            <div class="text-center">
+                <p class="text-3xl font-bold text-gold">100%</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Kiến thức</p>
+            </div>
+
+            <div class="text-center">
+                <p class="text-3xl font-bold text-gold">100%</p>
+                <p class="text-[10px] font-bold text-gray-400 uppercase">Thành công</p>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto mt-10 py-13 border-t border-gray-200 text-center">
+        <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-bold mb-1">Professional Countdown Dashboard • 2027 Edition</p>
+        <p class="text-l font-bold text-teal-900 tracking-wide">Designed by Anh Khoa _ahk_t</p>
+    </footer>
+
+    <script>
+        // Thiết lập đồng hồ đếm ngược
+        const targetDate = new Date(2027, 5, 11, 7, 30, 0).getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                return;
+            }
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Quotes thay đổi (10 giây)
+        const bigQuotes = [
+            { text: "\"Thành công là kết quả của sự chuẩn bị, làm việc chăm chỉ và học hỏi từ thất bại\"", author: "— Colin Powell" },
+            { text: "\"Đừng để sự lười biếng của hiện tại đánh cắp đi sự kiêu hãnh của tương lai\"", author: "— Khuyết danh" },
+            { text: "\"Áp lực không tạo ra khó khăn, áp lực tạo ra những viên kim cương lấp lánh\"", author: "— Khuyết danh" },
+            { text: "\"Học như thể bạn sẽ sống mãi mãi, sống như thể bạn sẽ chết vào ngày mai\"", author: "— Mahatma Gandhi" },
+            { text: "\"Một năm khởi đầu từ mùa xuân. Một đời khởi đầu từ tuổi trẻ. Tuổi trẻ là mùa xuân của xã hội\"", author: "— Hồ Chí Minh" },
+            { text: "\"Không có áp lực, không có kim cương\"", author: "— Thomas Carlyle" },
+            { text: "\"Kỷ luật là cầu nối giữa mục tiêu và thành tựu\"", author: "— Jim Rohn" },
+            { text: "\"Bạn không cần phải giỏi ngay từ đầu, nhưng phải bắt đầu để trở nên giỏi\"", author: "— Khuyết danh" },
+            { text: "\"Những ngày bạn mệt nhất chính là những ngày bạn đang tiến gần hơn tới ước mơ\"", author: "— Khuyết danh" },
+            { text: "\"Thành công không dành cho kẻ lười biếng\"", author: "— Khuyết danh" },
+            { text: "\"Ước mơ sẽ không hoạt động nếu bạn không hành động\"", author: "— John C. Maxwell" },
+            { text: "\"Hôm nay khó khăn, ngày mai còn khó khăn hơn, nhưng ngày kia sẽ là ánh mặt trời\"", author: "— Jack Ma" },
+            { text: "\"Đừng sợ đi chậm, chỉ sợ đứng yên\"", author: "— Tục ngữ Trung Hoa" },
+            { text: "\"Mỗi lần muốn bỏ cuộc, hãy nhớ lý do bạn bắt đầu\"", author: "— Khuyết danh" },
+            { text: "\"Sự chăm chỉ đánh bại tài năng khi tài năng không chăm chỉ\"", author: "— Tim Notke" },
+            { text: "\"Không ai có thể quay lại để bắt đầu mới, nhưng ai cũng có thể bắt đầu hôm nay để tạo nên kết thúc mới\"", author: "— Maria Robinson" },
+            { text: "\"Bạn của tương lai đang nhìn bạn của hiện tại với niềm hy vọng\"", author: "— Khuyết danh" },
+            { text: "\"Học tập giống như chèo thuyền ngược nước, không tiến sẽ lùi\"", author: "— Tục ngữ" },
+            { text: "\"Một chút tiến bộ mỗi ngày sẽ tạo nên kết quả lớn\"", author: "— Khuyết danh" },
+            { text: "\"Đừng giới hạn thử thách của mình, hãy thách thức giới hạn của bản thân\"", author: "— Khuyết danh" },
+            { text: "\"Người thành công là người làm điều cần làm ngay cả khi họ không thích\"", author: "— Khuyết danh" },
+            { text: "\"Chỉ cần không dừng lại, bạn tiến chậm thế nào cũng không quan trọng\"", author: "— Khổng Tử" },
+            { text: "\"Thất bại chỉ là cơ hội để bắt đầu lại theo cách thông minh hơn\"", author: "— Henry Ford" },
+            { text: "\"Tương lai phụ thuộc vào những gì bạn làm hôm nay\"", author: "— Mahatma Gandhi" },
+            { text: "\"Sự khác biệt giữa người bình thường và phi thường là một chút nỗ lực thêm mỗi ngày\"", author: "— Jimmy Johnson" },
+            { text: "\"Mọi chuyên gia đều từng là người mới bắt đầu\"", author: "— Helen Hayes" },
+            { text: "\"Hãy khiến bản thân tự hào trước khi khiến người khác ngưỡng mộ\"", author: "— Khuyết danh" },
+            { text: "\"Không ai tỏa sáng mà chưa từng trải qua bóng tối\"", author: "— Khuyết danh" },
+            { text: "\"Điều tuyệt vời nhất của tương lai là nó bắt đầu từ hôm nay\"", author: "— Abraham Lincoln" },
+            { text: "\"Càng nỗ lực, bạn càng may mắn\"", author: "— Gary Player" }
+        ];
+        
+        let qIdx = 0;
+        setInterval(() => {
+            qIdx = (qIdx + 1) % bigQuotes.length;
+            const qTxt = document.getElementById("quote-text");
+            const qAuth = document.getElementById("quote-author");
+            if (qTxt && qAuth) {
+                qTxt.style.opacity = 0;
+                qAuth.style.opacity = 0;
+                setTimeout(() => {
+                    qTxt.innerText = bigQuotes[qIdx].text;
+                    qAuth.innerText = bigQuotes[qIdx].author;
+                    qTxt.style.opacity = 1;
+                    qAuth.style.opacity = 1;
+                }, 400);
+            }
+        }, 7000);
+
+        // Câu truyền cảm hứng (5 giây)
+        const inspirations = [
+            "Hành trình vạn dặm bắt đầu từ một bước chân",
+            "Mỗi ngày nỗ lực một chút, thành công sẽ mỉm cười",
+            "Hãy là phiên bản tốt nhất của chính mình",
+            "Cố gắng hôm nay, gặt hái ngày mai",
+            "Kiên trì là chìa khóa của mọi cánh cửa",
+            "Tin vào chính mình là bước đầu của thành công",
+            "Mồ hôi rơi trên trang giấy, nụ cười rạng rỡ ngày mai"
+        ];
+        
+        let iIdx = 0;
+        const insTag = document.getElementById("inspiration-tag");
+        const insText = document.getElementById("inspiration-text");
+        
+        setInterval(() => {
+            iIdx = (iIdx + 1) % inspirations.length;
+            if (insTag && insText) {
+                insTag.style.transform = "scale(0.9) translateY(5px)";
+                insTag.style.opacity = "0.3";
+                
+                setTimeout(() => {
+                    insText.innerText = inspirations[iIdx];
+                    insTag.style.transform = "scale(1) translateY(0)";
+                    insTag.style.opacity = "1";
+                }, 400);
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
