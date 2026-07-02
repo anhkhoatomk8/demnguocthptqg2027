@@ -445,81 +445,161 @@ cancelCrop.addEventListener("click", () => {
             </h3>
         </div>
 
-        <!-- TABLE -->
-        <div class="overflow-x-auto">
-            <table class="exam-table">
-                <thead>
-                    <tr>
-                        <th>Ngày</th>
-                        <th>Buổi</th>
-                        <th>Bài thi/Môn thi</th>
-                        <th>Thời gian</th>
-                        <th>Phát đề</th>
-                        <th>Bắt đầu</th>
-                    </tr>
-                </thead>
+       <!-- TABLE -->
+<div class="overflow-x-auto">
+    <table class="exam-table w-full table-fixed">
+        <thead>
+            <tr>
+                <th class="w-[15%]">Ngày</th>
+                <th class="w-[12%]">Buổi</th>
+                <th class="w-[28%]">Bài thi/Môn thi</th>
+                <th class="w-[18%]">Thời gian</th>
+                <th class="w-[13%]">Phát đề</th>
+                <th class="w-[14%]">Bắt đầu</th>
+            </tr>
+        </thead>
 
-                <tbody>
-                    <tr>
-                        <td class="font-bold text-teal-800" rowspan="2">10/6/2027</td>
-                        <td class="text-gray-500">Sáng</td>
-                        <td colspan="4" class="italic text-gray-400 text-left">
-                            08:00: Họp cán bộ làm công tác coi thi tại Điểm thi
-                        </td>
-                    </tr>
+        <tbody>
 
-                    <tr class="bg-gray-50/30">
-                        <td class="text-gray-500">Chiều</td>
-                        <td colspan="20" class="italic text-gray-400 text-right">
-                            14:00: Làm thủ tục dự thi, đính chính sai sót và phổ biến quy chế
-                        </td>
-                    </tr>
+            <!-- 10/6 -->
+            <tr>
+                <td class="font-bold text-teal-800 text-center align-middle py-5" rowspan="2">
+                    10/6/2027
+                </td>
 
-                    <tr>
-                        <td class="font-bold text-teal-800" rowspan="2">11/6/2027</td>
-                        <td class="font-semibold">Sáng</td>
-                        <td class="font-bold text-gray-700">Ngữ văn</td>
-                        <td>120 phút</td>
-                        <td>07:30</td>
-                        <td class="text-teal-600 font-bold">07:35</td>
-                    </tr>
+                <td class="text-gray-500 text-center align-middle py-5">
+                    Sáng
+                </td>
 
-                    <tr class="bg-gray-50/30">
-                        <td class="font-semibold">Chiều</td>
-                        <td class="font-bold text-gray-700">Toán</td>
-                        <td>90 phút</td>
-                        <td>14:20</td>
-                        <td class="text-teal-600 font-bold">14:30</td>
-                    </tr>
+                <td colspan="4"
+                    class="italic text-gray-400 text-center py-5 align-middle">
+                    08:00: Họp cán bộ làm công tác coi thi tại Điểm thi
+                </td>
+            </tr>
 
-                    <tr>
-                        <td class="font-bold text-teal-800">12/6/2027</td>
-                        <td class="font-semibold">Sáng</td>
-                        <td class="font-bold text-gray-700">Bài thi tự chọn 1</td>
-                        <td>50 phút</td>
-                        <td>07:30</td>
-                        <td class="text-teal-600 font-bold">07:35</td>
-                    </tr>
-<tr>
-                        <td class="font-bold text-teal-800"></td>
-                        <td class="font-semibold">Sáng</td>
-                        <td class="font-bold text-gray-700">Bài thi tự chọn 2</td>
-                        <td>50 phút</td>
-                        <td>08:35</td>
-                        <td class="text-teal-600 font-bold">08:40</td>
-                    </tr>
-                    <tr class="bg-gray-50/30">
-                        <td class="font-bold text-teal-800">13/6/2027</td>
-                        <td colspan="5" class="text-center py-4 font-serif italic text-gray-400">
-                            Ngày thi dự phòng
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <tr class="bg-gray-50/30">
+                <td class="text-gray-500 text-center align-middle py-5">
+                    Chiều
+                </td>
 
-    </div>
+                <td colspan="4"
+                    class="italic text-gray-400 text-center py-5 align-middle">
+                    14:00: Làm thủ tục dự thi, đính chính sai sót và phổ biến quy chế
+                </td>
+            </tr>
 
+            <!-- 11/6 -->
+            <tr>
+                <td class="font-bold text-teal-800 text-center align-middle py-5" rowspan="2">
+                    11/6/2027
+                </td>
+
+                <td class="font-semibold text-center py-5">
+                    Sáng
+                </td>
+
+                <td class="font-bold text-gray-700 text-center py-5">
+                    Ngữ văn
+                </td>
+
+                <td class="text-center py-5">
+                    120 phút
+                </td>
+
+                <td class="text-center py-5">
+                    07:30
+                </td>
+
+                <td class="text-teal-600 font-bold text-center py-5">
+                    07:35
+                </td>
+            </tr>
+
+            <tr class="bg-gray-50/30">
+                <td class="font-semibold text-center py-5">
+                    Chiều
+                </td>
+
+                <td class="font-bold text-gray-700 text-center py-5">
+                    Toán
+                </td>
+
+                <td class="text-center py-5">
+                    90 phút
+                </td>
+
+                <td class="text-center py-5">
+                    14:20
+                </td>
+
+                <td class="text-teal-600 font-bold text-center py-5">
+                    14:30
+                </td>
+            </tr>
+
+            <!-- 12/6 -->
+            <tr>
+                <td class="font-bold text-teal-800 text-center align-middle py-5" rowspan="2">
+                    12/6/2027
+                </td>
+
+                <td class="font-semibold text-center py-5">
+                    Sáng
+                </td>
+
+                <td class="font-bold text-gray-700 text-center py-5">
+                    Bài thi tự chọn 1
+                </td>
+
+                <td class="text-center py-5">
+                    50 phút
+                </td>
+
+                <td class="text-center py-5">
+                    07:30
+                </td>
+
+                <td class="text-teal-600 font-bold text-center py-5">
+                    07:35
+                </td>
+            </tr>
+
+            <tr class="bg-gray-50/30">
+                <td class="font-semibold text-center py-5">
+                    Sáng
+                </td>
+
+                <td class="font-bold text-gray-700 text-center py-5">
+                    Bài thi tự chọn 2
+                </td>
+
+                <td class="text-center py-5">
+                    50 phút
+                </td>
+
+                <td class="text-center py-5">
+                    08:35
+                </td>
+
+                <td class="text-teal-600 font-bold text-center py-5">
+                    08:40
+                </td>
+            </tr>
+
+            <!-- 13/6 -->
+            <tr class="bg-gray-50/30">
+                <td class="font-bold text-teal-800 text-center py-5">
+                    13/6/2027
+                </td>
+
+                <td colspan="5"
+                    class="text-center py-5 font-serif italic text-gray-400">
+                    Ngày thi dự phòng
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </div>
             <!-- Câu nói truyền cảm hứng (Chạy mỗi 5s) -->
             <div class="flex justify-center">
